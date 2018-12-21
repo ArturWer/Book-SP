@@ -3,10 +3,10 @@ var main = function () {
 	// getJSON сразу интерпретирует JSON, поэтому
 	// нет необходимости вызывать JSON.parse
 	$.getJSON("cards/aceOfSpades.json", function (card) {
-	Глава 5. Мост
-	163
 	// вводим карту в консоль
 	console.log(card);
+	let para = document.querySelector('p');
+	para.textContent = `${card.rank} of ${card.suit}`;
 	});
 };
 $(document).ready(main);
