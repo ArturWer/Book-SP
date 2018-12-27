@@ -1,6 +1,6 @@
 var main = function () {
 	"use strict";
-	let url = "http://api.flickr.com/services/feeds/photos_public.gne?tags=dogs&format=json&jsoncallback=?";
+	let url = "http://api.flickr.com/services/feeds/photos_public.gne?tags=dolphins&format=json&jsoncallback=?";
 	let ul = document.querySelector("ul");
 	$.getJSON(url, function (flickrResponse) {
 		flickrResponse.items.forEach(function(photo){
