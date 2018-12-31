@@ -1,0 +1,10 @@
+body{
+	font-size: 20px;
+}
+section{
+	text-align: center;
+	margin: 0 0 2rem 0;
+	box-shadow: 5px 5px 4px black;
+	padding: 2rem;
+	background-color: #efefef;
+}
