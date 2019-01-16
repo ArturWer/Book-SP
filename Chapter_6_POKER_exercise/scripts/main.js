@@ -2,6 +2,7 @@
 let suits = ["Clubs", "Diamonds", "Hearts", "Spades"];
 let ranks = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Quin", "King"];
 let hand = getRandomHand();
+let btn = document.querySelector(".newCards");
 
 function random(num){
   return Math.random()*num;
@@ -29,5 +30,8 @@ function getRandomHand(){
 	return hand;
 };
 
-console.table(hand);
+btn.addEventListener("click", ()=>{
+	hand = getRandomHand();
+	console.table(hand);
+});
 
