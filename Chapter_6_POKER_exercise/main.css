@@ -1,0 +1,28 @@
+body{
+	margin: 0;
+	padding: 0;
+	background-color: darkgreen;
+	line-height: 1.5rem;
+}
+main{
+	
+}
+
+.newCards{
+	font-size: 2rem;
+	border-radius: .3rem;
+	padding: .5rem;
+	position: fixed;
+	top: 2rem;
+	right: 3rem;
+}
+.newCards:hover{
+	color: white;
+	background-color: #4c40c1;
+	box-shadow: 2px 2px 3px black;
+}
+.newCards:active{
+	color: white;
+	background-color: #610f0f;
+	box-shadow: 1px 1px 1px black;
+}
