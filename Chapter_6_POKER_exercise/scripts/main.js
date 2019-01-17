@@ -1,8 +1,9 @@
 "use strict"
 let suits = ["Clubs", "Diamonds", "Hearts", "Spades"];
-let ranks = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Quin", "King"];
+let ranks = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
 let hand = getRandomHand();
 let btn = document.querySelector(".newCards");
+let cards = document.querySelectorAll(".cards img");
 
 function random(num){
   return Math.random()*num;
@@ -31,10 +32,11 @@ function getRandomHand(){
 };
 
 function drawCards(){
-	hand.forEach(card=>{
-		let src = `img/${card.suit}/${card.rank}_${card.suit}.png`;
-		console.table(src);
-	});
+	for (let i = 0; i < hand.length; i++){
+		let src = `img/${hand[i].suit}/${hand[i].rank}_${hand[i].suit}.png`;
+		cards[i].src = src;
+	}
+
 };
 
 btn.addEventListener("click", ()=>{
