@@ -21,10 +21,14 @@ function getRandomHand(){
 		let card = getRadomCard();
 		/* check if it's new card or no */
 		if (hand.length>0) {
-			while (hand.indexOf(card) >= 0) {
-				console.log("Need new card");
-				card = getRadomCard();
-			}
+			hand.forEach(oldCard=>{
+				if (oldCard.suit === card.suit) {
+					if (oldCard.rank === card.rank) {
+						console.log("Need new card");
+						card = getRadomCard();
+					}
+				}
+			});
 		} 
 		hand.push(card);
 	};
@@ -42,7 +46,6 @@ function drawCards(){
 btn.addEventListener("click", ()=>{
 	hand = getRandomHand();
 	drawCards();
-	console.table(hand);
 });
 
 drawCards();
