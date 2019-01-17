@@ -30,12 +30,17 @@ function getRandomHand(){
 	return hand;
 };
 
-function drawCards(hand){
-
+function drawCards(){
+	hand.forEach(card=>{
+		let src = `img/${card.suit}/${card.rank}_${card.suit}.png`;
+		console.table(src);
+	});
 };
 
 btn.addEventListener("click", ()=>{
 	hand = getRandomHand();
+	drawCards();
 	console.table(hand);
 });
 
+drawCards();
