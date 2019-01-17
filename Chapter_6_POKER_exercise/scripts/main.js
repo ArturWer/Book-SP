@@ -30,6 +30,10 @@ function getRandomHand(){
 	return hand;
 };
 
+function drawCards(hand){
+
+};
+
 btn.addEventListener("click", ()=>{
 	hand = getRandomHand();
 	console.table(hand);
