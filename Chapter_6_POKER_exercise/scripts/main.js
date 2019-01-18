@@ -44,29 +44,47 @@ function drawCards(){
 
 };
 /* array strings n-times exercise*/
-function arrayContainsNTimes (array, string, nTimes){
+function arrayContainsNTimes (array, nTimes, string){
 	let count = 0;
-	array.forEach(function(value){
+	array.forEach((value)=>{
 		if (value === string) {
 			count++;
 		}
 	});
 	if (count >= nTimes) {
+		console.log("Is a pair");
 		return true;
 	} else return false;
 }
 
 function findPairs(){
 	if (hand.length === 5) {
-		let isPair = arrayContainsNTimes(hand, 2, 2);		
-		console.log("is pairs");
+		let isPair = false;
+		let ranks = hand.map((card)=>{
+			return card.rank;
+		});
+		ranks.forEach(rank=>{
+			isPair = arrayContainsNTimes(ranks, 2, rank);
+		});
+				
+		if (isPair) {
+			let para = document.createElement("p");
+			para.textContent = "You have a pair cards";
+			msg.appendChild(para);
+		}
 	}
 }
 
+function checkCards(){
+	findPairs();
+};
+
 btn.addEventListener("click", ()=>{
+	msg.innerHTML = "";
 	hand = getRandomHand();
 	drawCards();
+	checkCards();
 });
 
 drawCards();
-findPairs();
+checkCards();
