@@ -57,27 +57,28 @@ function arrayContainsNTimes (array, nTimes, string){
 	} else return false;
 }
 
-function findPairs(){
-	if (hand.length === 5) {
-		let isPair = false;
-		let ranks = hand.map((card)=>{
-			return card.rank;
-		});
-		ranks.forEach(rank=>{
-			if (!isPair) 
-				isPair = arrayContainsNTimes(ranks, 2, rank);
-		});
-				
-		if (isPair) {
-			let para = document.createElement("p");
-			para.textContent = "You have a pair cards";
-			msg.appendChild(para);
-		}
-	}
+function findPairs(ranks){
+	let isPair = false;
+	ranks.forEach(rank=>{
+		if (!isPair) 
+			isPair = arrayContainsNTimes(ranks, 2, rank);
+	});
+			
+	
+		let para = document.createElement("p");
+	if (isPair) {
+		para.textContent = "You have a pair cards";	
+	} else para.textContent = "No game \:\( Try again";	
+	msg.appendChild(para);
 }
 
 function checkCards(){
-	findPairs();
+	if (hand.length === 5) {
+		let ranks = hand.map((card)=>{
+			return card.rank;
+		});
+		findPairs(ranks);
+	}
 };
 
 btn.addEventListener("click", ()=>{
