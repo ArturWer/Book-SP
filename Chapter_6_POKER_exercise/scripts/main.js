@@ -64,7 +64,8 @@ function findPairs(){
 			return card.rank;
 		});
 		ranks.forEach(rank=>{
-			isPair = arrayContainsNTimes(ranks, 2, rank);
+			if (!isPair) 
+				isPair = arrayContainsNTimes(ranks, 2, rank);
 		});
 				
 		if (isPair) {
