@@ -68,7 +68,10 @@ function findPairs(ranks){
 		let para = document.createElement("p");
 	if (isPair) {
 		para.textContent = "You have a pair cards";	
-	} else para.textContent = "No game \:\( Try again";	
+	} else {
+		para.className = "red";
+		para.textContent = "No game \:\(   Try again";
+	}
 	msg.appendChild(para);
 }
 
