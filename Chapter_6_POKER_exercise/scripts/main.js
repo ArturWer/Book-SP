@@ -56,20 +56,25 @@ function arrayContainsNTimes (array, nTimes, string){
 	} else return false;
 }
 
-function findPairs(ranks){
+function find(ranks){
 	let isPair = false;
+	let isTwoPairs = false;
 	let isTrio = false;
+	let is4Cards = false;
 	ranks.forEach(rank=>{
 		if (!isPair) 
 			isPair = arrayContainsNTimes(ranks, 2, rank);
 		if (!isTrio) 
 			isTrio = arrayContainsNTimes(ranks, 3, rank);
+		if (!is4Cards) 
+			is4Cards = arrayContainsNTimes(ranks, 4, rank);
 	});
 			
 	
 	let para = document.createElement("p");
-	if (isTrio) para.textContent = "You have three cards";	
-	else if (isPair) para.textContent = "You have a pair cards";	
+	if (is4Cards) para.textContent = "You have FOUR cards";
+	else if (isTrio) para.textContent = "You have THREE cards";	
+	else if (isPair) para.textContent = "You have one pair cards";	
 	else {
 		para.className = "red";
 		para.textContent = "No game \:\(   Try again";
@@ -82,7 +87,7 @@ function checkCards(){
 		let ranks = hand.map((card)=>{
 			return card.rank;
 		});
-		findPairs(ranks);
+		find(ranks);
 	}
 };
 
