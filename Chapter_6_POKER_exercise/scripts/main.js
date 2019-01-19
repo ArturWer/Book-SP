@@ -52,23 +52,25 @@ function arrayContainsNTimes (array, nTimes, string){
 		}
 	});
 	if (count >= nTimes) {
-		console.log("Is a pair");
 		return true;
 	} else return false;
 }
 
 function findPairs(ranks){
 	let isPair = false;
+	let isTrio = false;
 	ranks.forEach(rank=>{
 		if (!isPair) 
 			isPair = arrayContainsNTimes(ranks, 2, rank);
+		if (!isTrio) 
+			isTrio = arrayContainsNTimes(ranks, 3, rank);
 	});
 			
 	
-		let para = document.createElement("p");
-	if (isPair) {
-		para.textContent = "You have a pair cards";	
-	} else {
+	let para = document.createElement("p");
+	if (isTrio) para.textContent = "You have three cards";	
+	else if (isPair) para.textContent = "You have a pair cards";	
+	else {
 		para.className = "red";
 		para.textContent = "No game \:\(   Try again";
 	}
