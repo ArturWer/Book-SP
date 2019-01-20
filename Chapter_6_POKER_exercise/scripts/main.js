@@ -75,9 +75,20 @@ function checkTwoPairs(ranks){
 	searchPairs(ranks);
 
 	if (pairsArray.length === 2) {
-		console.log(`!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 2 pairs ${pairsArray}`);
 		return pairsArray;
 	} else return false;
+};
+
+function checkStraight(ranks){
+	ranks = ranks.sort();
+	let newArr = ranks.map(card=>{
+		if (card === "Jack") return 11;
+		else if (card === "Queen") return 12;
+		else if (card === "King") return 13;
+		else if (card === "Ace") return 14;
+		else return Number(card);
+	});
+	console.log(newArr);
 };
 
 function find(ranks){
@@ -86,6 +97,7 @@ function find(ranks){
 	let isTrio = false;
 	let is4Cards = false;
 	let twoPairs = false;
+	let isStraight = false;
 	ranks.forEach(rank=>{
 		if (!isPair) 
 			isPair = arrayContainsNTimes(ranks, 2, rank);
@@ -95,13 +107,16 @@ function find(ranks){
 			is4Cards = arrayContainsNTimes(ranks, 4, rank);
 	});
 	if (isPair && !isTrio) 
-		twoPairs = checkTwoPairs(ranks);		
+		twoPairs = checkTwoPairs(ranks);
+	if (!isPair && !isTrio && !is4Cards)
+		isStraight = checkStraight(ranks);		
 	
 	let para = document.createElement("p");
 	if (is4Cards) para.textContent = "You have FOUR cards";
+	else if (isStraight) para.textContent = "You have the STRAIGHT";	
 	else if (isTrio) para.textContent = "You have THREE cards";	
-	else if (isPair && !twoPairs) para.textContent = "You have one pair cards";	
 	else if (twoPairs) para.textContent = `You have TWO pairs: ${twoPairs[0].toUpperCase()}\'s and ${twoPairs[1].toUpperCase()}\'s`;
+	else if (isPair && !twoPairs) para.textContent = "You have ONE pair cards";	
 	else {
 		para.className = "red";
 		para.textContent = "No game \:\(   Try again";
