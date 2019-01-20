@@ -6,6 +6,13 @@ let btn = document.querySelector(".newCards");
 let cards = document.querySelectorAll(".cards img");
 let msg = document.querySelector(".msg");
 
+	hand = [
+	{suit:"Diamonds",rank:4},
+	{suit:"Hearts",rank:4},
+	{suit:"Diamonds",rank:8},
+	{suit:"Spades",rank:3},
+	{suit:"Hearts",rank:3}];
+
 function random(num){
   return Math.random()*num;
 };
@@ -68,12 +75,11 @@ function checkTwoPairs(ranks){
 			}
 		});
 	};
-
-	searchPairs(ranks);
+	for (var i = ranks.length - 1; i > 0; i--) {
+		searchPairs(ranks);
+		firstCard = ranks.shift();
+	}
 	
-	firstCard = ranks.shift();
-	searchPairs(ranks);
-
 	if (pairsArray.length === 2) {
 		return pairsArray;
 	} else return false;
@@ -115,7 +121,7 @@ function find(ranks){
 	if (is4Cards) para.textContent = "You have FOUR cards";
 	else if (isStraight) para.textContent = "You have the STRAIGHT";	
 	else if (isTrio) para.textContent = "You have THREE cards";	
-	else if (twoPairs) para.textContent = `You have TWO pairs: ${twoPairs[0].toUpperCase()}\'s and ${twoPairs[1].toUpperCase()}\'s`;
+	else if (twoPairs) para.textContent = `You have TWO pairs: ${twoPairs[0]}\'s and ${twoPairs[1]}\'s`;
 	else if (isPair && !twoPairs) para.textContent = "You have ONE pair cards";	
 	else {
 		para.className = "red";
