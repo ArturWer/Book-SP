@@ -7,11 +7,11 @@ let cards = document.querySelectorAll(".cards img");
 let msg = document.querySelector(".msg");
 
 	hand = [
-	{suit:"Diamonds",rank:"9"},
+	{suit:"Diamonds",rank:"King"},
 	{suit:"Diamonds",rank:"Queen"},
 	{suit:"Diamonds",rank:"Jack"},
-	{suit:"Diamonds",rank:10},
-	{suit:"Diamonds",rank:8}];
+	{suit:"Diamonds",rank:"Ace"},
+	{suit:"Diamonds",rank:10}];
 
 function random(num){
   return Math.random()*num;
@@ -84,16 +84,18 @@ function checkTwoPairs(ranks){
 		return pairsArray;
 	} else return false;
 };
-
+function convertNameCarts(card){
+	if (card === "Jack") return 11;
+	else if (card === "Queen") return 12;
+	else if (card === "King") return 13;
+	else if (card === "Ace") return 14;
+	else return Number(card);
+};
 function checkStraight(ranks){
 	let  isStraight = true;
 	ranks = ranks.sort();
 	let newArr = ranks.map(card=>{
-		if (card === "Jack") return 11;
-		else if (card === "Queen") return 12;
-		else if (card === "King") return 13;
-		else if (card === "Ace") return 14;
-		else return Number(card);
+		return convertNameCarts(card);
 	});
 	/* Ace is 1 or 14 */
 	if ((Number(newArr[0]) === 2) && newArr[4] === 14) 
@@ -124,6 +126,21 @@ function checkFlush(){
 	});
 	return isFlush;
 };
+function checkRoyalFlush(){
+	let ranks = hand.map(card=>{
+		return card.rank;
+	});
+	let newNumArr = ranks.map(card=>{
+		return convertNameCarts(card);
+	});
+	newNumArr = newNumArr.sort((a,b)=>{
+		return a-b;
+	});
+	if (newNumArr[0] === 10) {
+		document.body.style.backgroundColor = "red";
+		return true;
+	}
+}
 
 function find(ranks){
 	let isPair = false;
@@ -132,6 +149,7 @@ function find(ranks){
 	let twoPairs = false;
 	let isStraight = false;
 	let isFlush = false;
+	let isRoyalFlush = false;
 	ranks.forEach(rank=>{
 		if (!isPair) 
 			isPair = arrayContainsNTimes(ranks, 2, rank);
@@ -146,9 +164,12 @@ function find(ranks){
 		isStraight = checkStraight(ranks);
 	if (!isPair && !isTrio && !is4Cards && !twoPairs)	
 		isFlush = checkFlush();
+	if (isFlush && isStraight)
+		isRoyalFlush = checkRoyalFlush();
 
 	let para = document.createElement("p");
 	if (is4Cards) para.textContent = "You have FOUR of a kind";	
+	else if (isRoyalFlush) para.textContent = "You have ROYAL FLUSH";
 	else if (isFlush && isStraight) para.textContent = "You have STRAIGHT FLUSH";
 	else if (isStraight) para.textContent = "You have STRAIGHT";
 	else if (isFlush) para.textContent = "You have FLUSH";
@@ -175,6 +196,7 @@ function checkCards(){
 btn.addEventListener("click", ()=>{
 	msg.innerHTML = "";
 	hand = getRandomHand();
+	document.body.style.backgroundColor = "darkgreen";
 	drawCards();
 	checkCards();
 });
