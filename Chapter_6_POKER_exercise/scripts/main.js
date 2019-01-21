@@ -7,10 +7,10 @@ let cards = document.querySelectorAll(".cards img");
 let msg = document.querySelector(".msg");
 
 	hand = [
-	{suit:"Diamonds",rank:10},
+	{suit:"Hearts",rank:4},
 	{suit:"Hearts",rank:"King"},
-	{suit:"Diamonds",rank:"Queen"},
-	{suit:"Spades",rank:"Ace"},
+	{suit:"Hearts",rank:"Queen"},
+	{suit:"Hearts",rank:"Ace"},
 	{suit:"Hearts",rank:"Jack"}];
 
 function random(num){
@@ -109,13 +109,27 @@ function checkStraight(ranks){
 	return isStraight;
 };
 
+function checkFlush(){
+	let isFlush = true;
+	let firstSuit;
+	let suits = hand.map(card=>{
+		return card.suit;
+	});
+	firstSuit = suits[0];
+	suits.forEach(suit=>{
+		if (suit !== firstSuit) 
+			isFlush = false;
+	});
+	return isFlush;
+};
+
 function find(ranks){
 	let isPair = false;
-	let isTwoPairs = false;
 	let isTrio = false;
 	let is4Cards = false;
 	let twoPairs = false;
 	let isStraight = false;
+	let isFlush = false;
 	ranks.forEach(rank=>{
 		if (!isPair) 
 			isPair = arrayContainsNTimes(ranks, 2, rank);
@@ -127,12 +141,14 @@ function find(ranks){
 	if (isPair && !isTrio) 
 		twoPairs = checkTwoPairs(ranks);
 	if (!isPair && !isTrio && !is4Cards)
-		isStraight = checkStraight(ranks);		
-	console.log(isStraight);
-	
+		isStraight = checkStraight(ranks);
+	if (!isPair && !isTrio && !is4Cards && !twoPairs)	
+		isFlush = checkFlush();
+
 	let para = document.createElement("p");
 	if (is4Cards) para.textContent = "You have FOUR cards";
-	else if (isStraight) para.textContent = "You have the STRAIGHT";	
+	else if (isStraight) para.textContent = "You have the STRAIGHT";
+	else if (isFlush) para.textContent = "You have the FLUSH";	
 	else if (isTrio) para.textContent = "You have THREE cards";	
 	else if (twoPairs) para.textContent = `You have TWO pairs: ${twoPairs[0]}\'s and ${twoPairs[1]}\'s`;
 	else if (isPair && !twoPairs) para.textContent = "You have ONE pair cards";	
