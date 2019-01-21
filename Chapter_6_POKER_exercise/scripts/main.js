@@ -7,11 +7,11 @@ let cards = document.querySelectorAll(".cards img");
 let msg = document.querySelector(".msg");
 
 	hand = [
-	{suit:"Diamonds",rank:2},
-	{suit:"Hearts",rank:3},
-	{suit:"Diamonds",rank:4},
-	{suit:"Spades",rank:6},
-	{suit:"Hearts",rank:5}];
+	{suit:"Diamonds",rank:10},
+	{suit:"Hearts",rank:"King"},
+	{suit:"Diamonds",rank:"Queen"},
+	{suit:"Spades",rank:"Ace"},
+	{suit:"Hearts",rank:"Jack"}];
 
 function random(num){
   return Math.random()*num;
@@ -96,13 +96,17 @@ function checkStraight(ranks){
 		else return Number(card);
 	});
 	/* Ace is 1 or 14 */
-	if ((Number(newArr[0]) === 2) && newArr[4] === "Ace") 
+	if ((Number(newArr[0]) === 2) && newArr[4] === 14) 
 		newArr[4] = 1;
-	
+
+	newArr = newArr.sort();
 	for (var i = 0; i < newArr.length; i++) {
-		console.log(newArr[i]);
+		if ((i >= 0) && (i <= 3)) {
+			if((newArr[i]+1) !== newArr[i+1])
+				isStraight = false;
+		}
 	}
-	console.log(newArr);
+	return isStraight;
 };
 
 function find(ranks){
@@ -124,6 +128,7 @@ function find(ranks){
 		twoPairs = checkTwoPairs(ranks);
 	if (!isPair && !isTrio && !is4Cards)
 		isStraight = checkStraight(ranks);		
+	console.log(isStraight);
 	
 	let para = document.createElement("p");
 	if (is4Cards) para.textContent = "You have FOUR cards";
