@@ -7,11 +7,11 @@ let cards = document.querySelectorAll(".cards img");
 let msg = document.querySelector(".msg");
 
 	hand = [
-	{suit:"Hearts",rank:4},
-	{suit:"Diamonds",rank:4},
-	{suit:"Hearts",rank:"Jack"},
+	{suit:"Diamonds",rank:"9"},
+	{suit:"Diamonds",rank:"Queen"},
 	{suit:"Diamonds",rank:"Jack"},
-	{suit:"Clubs",rank:"Jack"}];
+	{suit:"Diamonds",rank:10},
+	{suit:"Diamonds",rank:8}];
 
 function random(num){
   return Math.random()*num;
@@ -99,7 +99,9 @@ function checkStraight(ranks){
 	if ((Number(newArr[0]) === 2) && newArr[4] === 14) 
 		newArr[4] = 1;
 
-	newArr = newArr.sort();
+	newArr = newArr.sort((a,b)=>{
+		return a-b;
+	});
 	for (var i = 0; i < newArr.length; i++) {
 		if ((i >= 0) && (i <= 3)) {
 			if((newArr[i]+1) !== newArr[i+1])
@@ -146,7 +148,8 @@ function find(ranks){
 		isFlush = checkFlush();
 
 	let para = document.createElement("p");
-	if (is4Cards) para.textContent = "You have FOUR of a kind";
+	if (is4Cards) para.textContent = "You have FOUR of a kind";	
+	else if (isFlush && isStraight) para.textContent = "You have STRAIGHT FLUSH";
 	else if (isStraight) para.textContent = "You have STRAIGHT";
 	else if (isFlush) para.textContent = "You have FLUSH";
 	else if (isTrio && isPair) para.textContent = "You have FULL HOUSE";	
