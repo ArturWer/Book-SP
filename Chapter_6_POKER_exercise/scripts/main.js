@@ -7,11 +7,11 @@ let cards = document.querySelectorAll(".cards img");
 let msg = document.querySelector(".msg");
 
 	hand = [
+	{suit:"Diamonds",rank:2},
+	{suit:"Hearts",rank:3},
 	{suit:"Diamonds",rank:4},
-	{suit:"Hearts",rank:4},
-	{suit:"Diamonds",rank:8},
-	{suit:"Spades",rank:3},
-	{suit:"Hearts",rank:3}];
+	{suit:"Spades",rank:6},
+	{suit:"Hearts",rank:5}];
 
 function random(num){
   return Math.random()*num;
@@ -86,6 +86,7 @@ function checkTwoPairs(ranks){
 };
 
 function checkStraight(ranks){
+	let  isStraight = true;
 	ranks = ranks.sort();
 	let newArr = ranks.map(card=>{
 		if (card === "Jack") return 11;
@@ -94,6 +95,13 @@ function checkStraight(ranks){
 		else if (card === "Ace") return 14;
 		else return Number(card);
 	});
+	/* Ace is 1 or 14 */
+	if ((Number(newArr[0]) === 2) && newArr[4] === "Ace") 
+		newArr[4] = 1;
+	
+	for (var i = 0; i < newArr.length; i++) {
+		console.log(newArr[i]);
+	}
 	console.log(newArr);
 };
 
