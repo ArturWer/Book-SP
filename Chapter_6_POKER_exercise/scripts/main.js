@@ -8,10 +8,10 @@ let msg = document.querySelector(".msg");
 
 	hand = [
 	{suit:"Hearts",rank:4},
-	{suit:"Hearts",rank:"King"},
-	{suit:"Hearts",rank:"Queen"},
-	{suit:"Hearts",rank:"Ace"},
-	{suit:"Hearts",rank:"Jack"}];
+	{suit:"Diamonds",rank:4},
+	{suit:"Hearts",rank:"Jack"},
+	{suit:"Diamonds",rank:"Jack"},
+	{suit:"Clubs",rank:"Jack"}];
 
 function random(num){
   return Math.random()*num;
@@ -146,12 +146,13 @@ function find(ranks){
 		isFlush = checkFlush();
 
 	let para = document.createElement("p");
-	if (is4Cards) para.textContent = "You have FOUR cards";
-	else if (isStraight) para.textContent = "You have the STRAIGHT";
-	else if (isFlush) para.textContent = "You have the FLUSH";	
-	else if (isTrio) para.textContent = "You have THREE cards";	
+	if (is4Cards) para.textContent = "You have FOUR of a kind";
+	else if (isStraight) para.textContent = "You have STRAIGHT";
+	else if (isFlush) para.textContent = "You have FLUSH";
+	else if (isTrio && isPair) para.textContent = "You have FULL HOUSE";	
+	else if (isTrio) para.textContent = "Three of a kind";	
 	else if (twoPairs) para.textContent = `You have TWO pairs: ${twoPairs[0]}\'s and ${twoPairs[1]}\'s`;
-	else if (isPair && !twoPairs) para.textContent = "You have ONE pair cards";	
+	else if (isPair && !twoPairs) para.textContent = "You have ONE pair";	
 	else {
 		para.className = "red";
 		para.textContent = "No game \:\(   Try again";
