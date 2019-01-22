@@ -5,14 +5,14 @@ let hand = getRandomHand();
 let btn = document.querySelector(".newCards");
 let cards = document.querySelectorAll(".cards img");
 let msg = document.querySelector(".msg");
-
+/* it's for better testing
 	hand = [
-	{suit:"Diamonds",rank:"King"},
+	{suit:"Spades",rank:9},
+	{suit:"Spades",rank:"Queen"},
+	{suit:"Hearts",rank:"Queen"},
 	{suit:"Diamonds",rank:"Queen"},
-	{suit:"Diamonds",rank:"Jack"},
-	{suit:"Diamonds",rank:"Ace"},
-	{suit:"Diamonds",rank:10}];
-
+	{suit:"Clubs",rank:5}];
+*/
 function random(num){
   return Math.random()*num;
 };
@@ -113,6 +113,24 @@ function checkStraight(ranks){
 	return isStraight;
 };
 
+function checkFullHouse(ranks){
+	let pair = [];
+	let trio = [];
+	let isNOTFullHouse;
+	pair = ranks.splice(0, 1);
+	ranks.forEach(rank=>{
+		if (pair[0] === rank) 
+			pair.push(rank);
+		else if (trio.length === 0) 
+			trio.push(rank);
+		else if (trio[0] === rank) 
+			trio.push(rank);
+		else
+			isNOTFullHouse = true;
+	});
+	return !isNOTFullHouse;
+};
+
 function checkFlush(){
 	let isFlush = true;
 	let firstSuit;
@@ -148,6 +166,7 @@ function find(ranks){
 	let is4Cards = false;
 	let twoPairs = false;
 	let isStraight = false;
+	let isFullHouse = false;
 	let isFlush = false;
 	let isRoyalFlush = false;
 	ranks.forEach(rank=>{
@@ -162,6 +181,8 @@ function find(ranks){
 		twoPairs = checkTwoPairs(ranks);
 	if (!isPair && !isTrio && !is4Cards)
 		isStraight = checkStraight(ranks);
+	if (isTrio)
+		isFullHouse = checkFullHouse(ranks);
 	if (!isPair && !isTrio && !is4Cards && !twoPairs)	
 		isFlush = checkFlush();
 	if (isFlush && isStraight)
@@ -173,11 +194,12 @@ function find(ranks){
 	else if (isFlush && isStraight) para.textContent = "You have STRAIGHT FLUSH";
 	else if (isStraight) para.textContent = "You have STRAIGHT";
 	else if (isFlush) para.textContent = "You have FLUSH";
-	else if (isTrio && isPair) para.textContent = "You have FULL HOUSE";	
+	else if (isFullHouse) para.textContent = "You have FULL HOUSE";	
 	else if (isTrio) para.textContent = "Three of a kind";	
 	else if (twoPairs) para.textContent = `You have TWO pairs: ${twoPairs[0]}\'s and ${twoPairs[1]}\'s`;
 	else if (isPair && !twoPairs) para.textContent = "You have ONE pair";	
 	else {
+		document.body.style.backgroundColor = "black";
 		para.className = "red";
 		para.textContent = "No game \:\(   Try again";
 	}
